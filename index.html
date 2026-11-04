@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Digital Community</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f4f9;color:#26354a}
+header{background:#315e9b;color:white;padding:22px;text-align:center}
+header h1{margin:0;font-size:28px}
+header p{margin:8px 0 0}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:14px}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-size:15px;font-weight:bold}
+nav button,.secondary{background:#dce7f5;color:#234b7b}
+.primary{background:#315e9b;color:white}
+main{max-width:760px;margin:10px auto;padding:12px}
+.panel{background:white;border-radius:15px;padding:20px;margin-bottom:15px;box-shadow:0 2px 8px #0000000d}
+h2{color:#315e9b;margin-top:0}
+h3{margin-bottom:6px}
+p{line-height:1.5}
+.small{color:#64748b;font-size:13px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #b9c6d5;border-radius:9px;font-size:16px;margin:7px 0 14px}
+textarea{min-height:90px}
+.post{border:1px solid #dce3ed;border-radius:12px;padding:15px;margin:12px 0}
+.avatar{font-size:32px;background:#e8effa;border-radius:50%;width:52px;height:52px;display:grid;place-items:center}
+.row{display:flex;align-items:center;gap:12px}
+.hidden{display:none}
+.activity{background:#edf3fb;padding:14px;border-radius:10px;margin:10px 0}
+.result{font-weight:bold;margin-top:10px}
+footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #e39b27;outline-offset:2px}
+</style>
+</head>
+<body>
+<header>
+<h1>💬 My Digital Community</h1>
+<p>Learn • Practice • Create</p>
+</header>
+<nav aria-label="Learning modules">
+<button onclick="show('intro')">🏠 Start</button>
+<button onclick="show('profiles')">😊 Profiles</button>
+<button onclick="show('practice')">❤️ Practice</button>
+<button onclick="show('business')">📣 Marketing</button>
+<button onclick="show('challenge')">🐾 Animal Business</button>
+</nav>
+<main>
+
+<section id="intro">
+<div class="panel">
+<h2>Welcome to My Digital Community!</h2>
+<p>Have you ever seen someone share a picture or a message online?</p>
+<p>That is one way people use social media!</p>
+<div class="activity">
+<h3>What will you learn?</h3>
+<p>👤 Profiles – Learn about people online.</p>
+<p>📝 Posts – Share messages and pictures.</p>
+<p>❤️ Likes – Show appreciation.</p>
+<p>💬 Comments – Respond to a post.</p>
+<p>📣 Marketing – Tell people about a business.</p>
+</div>
+<button class="primary" onclick="show('profiles')">Let's get started!</button>
+</div>
+<div class="panel">
+<h2>What is social media?</h2>
+<p>Social media is a way people connect, communicate, and share information online.</p>
+<p>People share hobbies, pictures, news, ideas, and business information.</p>
+</div>
+</section>
+
+<section id="profiles" class="hidden">
+<div class="panel">
+<h2>😊 Create a Practice Profile</h2>
+<p>A profile tells people a little about you.</p>
+<label for="student">Your first name or classroom practice name</label>
+<input id="student" maxlength="25" placeholder="Enter a name">
+<label for="avatar">Choose an avatar</label>
+<select id="avatar">
+<option>😊 Smiling face</option>
+<option>🐶 Dog</option>
+<option>🐱 Cat</option>
+<option>⚽ Soccer ball</option>
+<option>🎨 Artist</option>
+<option>🌟 Star</option>
+</select>
+<label for="interest">Something I like</label>
+<input id="interest" maxlength="80" placeholder="I like music, animals, or sports...">
+<button class="primary" onclick="makeProfile()">Create my practice profile</button>
+<div id="profileResult" class="activity" aria-live="polite">Your profile will appear here.</div>
+<p class="small">Use a classroom-approved name. Do not include your address, phone number, or other private information.</p>
+</div>
+<div class="panel">
+<h2>Remember!</h2>
+<p>A profile is a page that introduces you to other people online.</p>
+</div>
+</section>
+
+<section id="practice" class="hidden">
+<div class="panel">
+<h2>❤️ Let's Practice!</h2>
+<p>Read these sample posts. Try giving someone a like or writing a comment.</p>
+<div class="post">
+<div class="row"><div class="avatar">🏀</div><div><b>Jordan</b><div class="small">Sample classroom post</div></div></div>
+<p>I love basketball! It is my favorite sport.</p>
+<button class="secondary" onclick="like(this)">♡ Like <span>2</span></button>
+<button class="secondary" onclick="comment(this)">💬 Comment</button>
+<div class="comments small" aria-live="polite"></div>
+</div>
+<div class="post">
+<div class="row"><div class="avatar">🎵</div><div><b>Morgan</b><div class="small">Sample classroom post</div></div></div>
+<p>Music makes me happy! What music do you enjoy?</p>
+<button class="secondary" onclick="like(this)">♡ Like <span>4</span></button>
+<button class="secondary" onclick="comment(this)">💬 Comment</button>
+<div class="comments small" aria-live="polite"></div>
+</div>
+</div>
+<div class="panel">
+<h2>✏️ Write Your Own Post</h2>
+<p>What would you like to share?</p>
+<textarea id="myPost" maxlength="250" placeholder="I enjoy..."></textarea>
+<button class="primary" onclick="publish()">Share my practice post</button>
+<div id="myPostResult" aria-live="polite"></div>
+</div>
+<div class="panel">
+<h2>What is a caption?</h2>
+<p>A caption is a few words that describe or explain a picture.</p>
+<div class="activity">
+<div style="font-size:65px;text-align:center">🐕🛁</div>
+<p><b>Example caption:</b> "Buddy enjoys a fresh bath!"</p>
+</div>
+<p>Try writing a caption for a picture of a cat playing.</p>
+<textarea id="caption" placeholder="My caption..."></textarea>
+<button class="primary" onclick="showCaption()">Check my caption</button>
+<div id="captionResult" aria-live="polite"></div>
+</div>
+</section>
+
+<section id="business" class="hidden">
+<div class="panel">
+<h2>📣 Social Media and Business</h2>
+<p>Businesses use social media to tell people about their products and services.</p>
+<div class="activity">
+<h3>What is an advertisement?</h3>
+<p>An advertisement is a message that encourages people to learn about or buy something.</p>
+<h3>What is a headline?</h3>
+<p>A headline is a title that gets people's attention.</p>
+<h3>What is a caption?</h3>
+<p>A caption describes a picture.</p>
+</div>
+<h3>Practice: Which one is an advertisement?</h3>
+<p>Choose the best answer.</p>
+<button class="secondary" onclick="quiz('wrong')">"This dog is brown."</button>
+<button class="secondary" onclick="quiz('right')">"Bring your dog to Happy Paws Grooming!"</button>
+<div id="quizResult" class="result" aria-live="polite"></div>
+</div>
+<div class="panel">
+<h2>✏️ Create an Advertisement</h2>
+<label for="adName">Business name</label>
+<input id="adName" placeholder="Example: Happy Paws">
+<label for="adMessage">Write a message to attract customers</label>
+<textarea id="adMessage" placeholder="Come visit us! We offer..."></textarea>
+<button class="primary" onclick="makeAd()">Create my advertisement</button>
+<div id="adResult" class="activity" aria-live="polite"></div>
+</div>
+</section>
+
+<section id="challenge" class="hidden">
+<div class="panel">
+<h2>🐾 Your Animal Business Challenge!</h2>
+<p>Now you are ready to practice marketing an animal-related business.</p>
+<div class="activity">
+<h3>Choose your pretend business</h3>
+<label for="businessType">My business</label>
+<select id="businessType">
+<option>Dog grooming</option>
+<option>Pet sitting</option>
+<option>Dog walking</option>
+<option>Pet supply shop</option>
+<option>Animal care</option>
+</select>
+</div>
+<h3>Choose your picture idea</h3>
+<div class="activity">
+<p>🐶 A dog getting groomed</p>
+<p>🐱 A cat playing with a toy</p>
+<p>🐕 A dog going for a walk</p>
+<p>🐾 A happy pet with its owner</p>
+</div>
+<label for="animalCaption">Write a caption for your animal business picture</label>
+<textarea id="animalCaption" placeholder="Example: Your pet deserves a little extra care!"></textarea>
+<label for="animalAd">Write an advertisement</label>
+<textarea id="animalAd" placeholder="Example: Visit our pet shop for toys and treats!"></textarea>
+<button class="primary" onclick="finish()">Complete my challenge!</button>
+<div id="finishResult" class="activity" aria-live="polite"></div>
+</div>
+<div class="panel">
+<h2>Next Step: Google Sites!</h2>
+<p>You have practiced social media and marketing.</p>
+<p>Now use what you learned to create your own animal-business website in Google Sites.</p>
+<p>Remember to add:</p>
+<ul>
+<li>A business name</li>
+<li>Photographs</li>
+<li>Captions</li>
+<li>Services</li>
+<li>An advertisement</li>
+</ul>
+</div>
+</section>
+</main>
+<footer>
+Classroom practice only • Sample profiles • Nothing is saved or sent to a server.
+</footer>
+<script>
+function show(id){
+ document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ window.scrollTo(0,0);
+}
+function safe(value){
+ return value.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function makeProfile(){
+ let n=document.getElementById('student').value.trim();
+ let a=document.getElementById('avatar').value;
+ let i=document.getElementById('interest').value.trim();
+ document.getElementById('profileResult').innerHTML=
+ n?'<h3>'+a+' '+safe(n)+'</h3><p>I like '+safe(i||'learning new things')+'.</p><b>My practice profile is ready!</b>':'Please enter a name first.';
+}
+function like(button){
+ let span=button.querySelector('span');
+ if(button.dataset.liked==='yes'){
+ span.textContent=Number(span.textContent)-1;
+ button.dataset.liked='no';
+ button.firstChild.textContent='♡ Like ';
+ }else{
+ span.textContent=Number(span.textContent)+1;
+ button.dataset.liked='yes';
+ button.firstChild.textContent='♥ Liked ';
+ }
+}
+function comment(button){
+ let area=button.nextElementSibling;
+ let value=prompt('Write a kind practice comment:');
+ if(value&&value.trim()){
+ let p=document.createElement('p');
+ p.textContent='Practice comment: '+value.trim();
+ area.appendChild(p);
+ }
+}
+function publish(){
+ let v=document.getElementById('myPost').value.trim();
+ document.getElementById('myPostResult').textContent=
+ v?'Your practice post: '+v+' (Only shown on this computer.)':'Please write a post first.';
+}
+function showCaption(){
+ let v=document.getElementById('caption').value.trim();
+ document.getElementById('captionResult').textContent=
+ v?'Nice work! You wrote a practice caption: '+v:'Please try writing a caption.';
+}
+function quiz(answer){
+ document.getElementById('quizResult').textContent=
+ answer==='right'?'✓ Correct! This advertisement encourages people to use a service.':'Try again. Which message encourages someone to use a business?';
+}
+function makeAd(){
+ let n=document.getElementById('adName').value.trim();
+ let m=document.getElementById('adMessage').value.trim();
+ document.getElementById('adResult').textContent=
+ n&&m?n+': '+m:'Please enter a business name and advertisement.';
+}
+function finish(){
+ let c=document.getElementById('animalCaption').value.trim();
+ let a=document.getElementById('animalAd').value.trim();
+ document.getElementById('finishResult').textContent=
+ c&&a?'🎉 Great work! You wrote a caption and an advertisement. You are ready to begin Google Sites!':'Please complete both your caption and advertisement.';
+}
+</script>
+</body>
+</html>
